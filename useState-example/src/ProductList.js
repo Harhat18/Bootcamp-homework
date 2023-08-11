@@ -15,7 +15,9 @@ const ProductList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/products")
+      .get(
+        "https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products"
+      )
       .then((res) => {
         setproducts(res.data);
         setloading(false);

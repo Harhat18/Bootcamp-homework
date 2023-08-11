@@ -23,7 +23,10 @@ const AddProduct = () => {
     };
 
     axios
-      .post("http://localhost:4000/api/products", newProducts)
+      .post(
+        "https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products",
+        newProducts
+      )
       .then((res) => {
         Alert.alert("Yeni bir ürün eklendi!");
       })
