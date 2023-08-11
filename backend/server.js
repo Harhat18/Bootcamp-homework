@@ -2,9 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
-import { DB } from "./models/dbConnect.js";
+import { DB } from "./src/models/dbConnect.js";
 
-import Product from "./routers/product.routes.js";
+import Product from "./src/routers/product.routes.js";
 
 const app = express();
 dotenv.config();
