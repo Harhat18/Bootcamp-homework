@@ -17,6 +17,6 @@ app.use(cors());
 
 app.use("/api/products", Product);
 
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
   console.log(`Start server on ${port}`);
 });
