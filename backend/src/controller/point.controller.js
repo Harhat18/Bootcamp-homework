@@ -14,7 +14,7 @@ export const postProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   try {
-    const deletedProduct = await Point.findByIdAndDelete(req.params.id);
+    const deletedProduct = await Point.findByIdAndDelete(req.params._id);
     if (!deletedProduct) {
       return res.status(404).json({ message: "Point not found" });
     }
