@@ -47,6 +47,7 @@ const ProductList = () => {
         console.error(err);
       });
   };
+
   const RenderHeader = () => (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Name</Text>
