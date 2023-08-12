@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   Pressable,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -31,8 +32,20 @@ const ProductList = () => {
   }, [setProducts]);
 
   const deleteProduct = (_id) => {
-    var filteredProducts = products.filter((q) => q._id != _id);
-    setProducts([...filteredProducts]);
+    axios
+      .delete(
+        `https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products/${_id}`
+      )
+      .then(() => {
+        const updatedProducts = products.filter(
+          (product) => product._id !== _id
+        );
+        setProducts(updatedProducts);
+      })
+      .catch((err) => {
+        Alert.alert("Ürün silinirken bir hata oluştu");
+        console.error(err);
+      });
   };
   const RenderHeader = () => (
     <View style={styles.headerContainer}>
