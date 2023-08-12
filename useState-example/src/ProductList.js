@@ -5,12 +5,13 @@ import {
   FlatList,
   View,
   StyleSheet,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const ProductList = () => {
-  const [products, setproducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setloading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const ProductList = () => {
         "https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products"
       )
       .then((res) => {
-        setproducts(res.data);
+        setProducts(res.data);
         setloading(false);
       })
       .catch((err) => {
@@ -27,9 +28,13 @@ const ProductList = () => {
         Alert.alert("İşlem sırasında bir hata meydana geldi");
         seterror(err);
       });
-  }, [products]);
+  }, [setProducts]);
 
-  const renderHeader = () => (
+  const deleteProduct = (_id) => {
+    var filteredProducts = products.filter((q) => q._id != _id);
+    setProducts([...filteredProducts]);
+  };
+  const RenderHeader = () => (
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>Name</Text>
       <Text style={styles.headerText}>Price</Text>
@@ -37,16 +42,24 @@ const ProductList = () => {
     </View>
   );
   renderItem = ({ item }) => (
-    <View
-      style={[
-        styles.rowContainer,
-        item.stock > 50 ? styles.highlightedRow : null,
-      ]}
-    >
-      <Text style={styles.rowText}>{item.name}</Text>
-      <Text style={styles.rowText}>{item.price}</Text>
-      <Text style={styles.rowText}> {item.stock}</Text>
-    </View>
+    <Pressable onPress={() => deleteProduct(item._id)}>
+      <View
+        style={[
+          styles.rowContainer,
+          item.stock > 50 ? styles.highlightedRow : null,
+        ]}
+      >
+        <View style={styles.flexContainer}>
+          <Text style={styles.rowText}>{item.name}</Text>
+        </View>
+        <View style={styles.flexContainer}>
+          <Text style={styles.rowText}>{item.price}</Text>
+        </View>
+        <View style={styles.flexContainer}>
+          <Text style={styles.rowText}> {item.stock}</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 
   return (
@@ -55,7 +68,7 @@ const ProductList = () => {
         <ActivityIndicator />
       ) : (
         <View>
-          {renderHeader()}
+          <RenderHeader />
           <FlatList data={products} renderItem={renderItem} />
         </View>
       )}
@@ -69,6 +82,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   headerContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -76,16 +90,26 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
     backgroundColor: "#f2f2f2",
+    marginHorizontal: 20,
   },
   headerText: {
     fontWeight: "bold",
   },
   rowContainer: {
+    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    marginHorizontal: 20,
+  },
+  flexContainer: {
+    flex: 1,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 5,
   },
   rowText: {
     flex: 1,

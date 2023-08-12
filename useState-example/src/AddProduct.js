@@ -4,8 +4,8 @@ import {
   SafeAreaView,
   TextInput,
   StyleSheet,
-  Button,
   Alert,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import axios from "axios";
@@ -35,13 +35,12 @@ const AddProduct = () => {
       });
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.text}>NEW PRODUCT ADD</Text>
       </View>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.inputText}>NAME: </Text>
         <TextInput
           style={styles.input}
           value={name}
@@ -50,7 +49,6 @@ const AddProduct = () => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputText}>PRİCE: </Text>
         <TextInput
           style={styles.input}
           value={price}
@@ -59,7 +57,6 @@ const AddProduct = () => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.inputText}>STOCK: </Text>
         <TextInput
           style={styles.input}
           value={stock}
@@ -67,8 +64,10 @@ const AddProduct = () => {
           placeholder="Stock"
         />
       </View>
-      <View>
-        <Button style={styles.button} title="Add" onPress={add}></Button>
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button} onPress={add}>
+          <Text>Add</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -79,24 +78,31 @@ export default AddProduct;
 const styles = StyleSheet.create({
   text: {
     textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
     margin: 20,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
   },
-  inputText: {},
   input: {
     height: 40,
     width: 150,
-    margin: 12,
+    margin: 8,
     borderWidth: 1,
     padding: 10,
   },
-  button: {},
+  buttonContainer: {
+    alignItems: "center",
+  },
+  button: {
+    alignItems: "center",
+    margin: 20,
+    backgroundColor: "#5f9ea0",
+    padding: 10,
+    borderRadius: 20,
+    width: 150,
+  },
 });
