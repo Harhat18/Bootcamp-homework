@@ -1,27 +1,36 @@
 import { Product } from "../models/products.js";
 
 export const getProducts = async (req, res, next) => {
-  const points = await Product.find();
-  res.status(200).json(points);
+  const products = await Product.find();
+  res.status(200).json(products);
 };
 
 export const postProduct = async (req, res) => {
   const { name, price, stock } = req.body;
-  const point = new Product({ name, price, stock });
-  await point.save();
-  res.status(201).json(point);
+  const product = new Product({ name, price, stock });
+  await product.save();
+  res.status(201).json(product);
 };
 
 export const deleteProduct = async (req, res) => {
+  const productId = req.params.id;
+
   try {
-    const deletedProduct = await Point.findByIdAndDelete(req.params._id);
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+
     if (!deletedProduct) {
-      return res.status(404).json({ message: "Point not found" });
+      return res.status(404).json({ message: "Ürün bulunamadı." });
     }
-    res.status(200).json({ message: "Product deleted", product: deletedPoint });
+
+    res
+      .status(200)
+      .json({ message: "Ürün başarıyla silindi.", deletedProduct });
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error deleting point", error: error.message });
+      .json({
+        message: "Ürün silinirken bir hata oluştu.",
+        error: error.message,
+      });
   }
 };

@@ -31,15 +31,13 @@ const ProductList = () => {
       });
   }, [setProducts]);
 
-  const deleteProduct = (_id) => {
+  const deleteProduct = (id) => {
     axios
       .delete(
-        `https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products/${_id}`
+        `https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products/${id}`
       )
       .then(() => {
-        const updatedProducts = products.filter(
-          (product) => product._id !== _id
-        );
+        const updatedProducts = products.filter((product) => product.id !== id);
         setProducts(updatedProducts);
       })
       .catch((err) => {
