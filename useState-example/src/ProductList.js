@@ -31,17 +31,19 @@ const ProductList = () => {
       });
   }, [setProducts]);
 
-  const deleteProduct = (id) => {
+  const deleteProduct = (Id) => {
     axios
       .delete(
-        `https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products/${id}`
+        `https://bootcamp-homework-ddty-9j7cths1k-harunhatib18-gmailcom.vercel.app/api/products/${Id}`
       )
-      .then(() => {
-        const updatedProducts = products.filter((product) => product.id !== id);
-        setProducts(updatedProducts);
+      .then((res) => {
+        setProducts((prevProducts) =>
+          prevProducts.filter((product) => product._id !== Id)
+        );
+        Alert.alert("Product deleted successfully");
       })
       .catch((err) => {
-        Alert.alert("Ürün silinirken bir hata oluştu");
+        Alert.alert("Error deleting product");
         console.error(err);
       });
   };

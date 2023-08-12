@@ -13,10 +13,8 @@ export const postProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const productId = req.params.id;
-
   try {
-    const deletedProduct = await Product.findByIdAndDelete(productId);
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
 
     if (!deletedProduct) {
       return res.status(404).json({ message: "Ürün bulunamadı." });
@@ -26,11 +24,9 @@ export const deleteProduct = async (req, res) => {
       .status(200)
       .json({ message: "Ürün başarıyla silindi.", deletedProduct });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Ürün silinirken bir hata oluştu.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Ürün silinirken bir hata oluştu.",
+      error: error.message,
+    });
   }
 };
